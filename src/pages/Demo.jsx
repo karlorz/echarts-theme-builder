@@ -2,15 +2,14 @@ import Header from '../components/Header';
 import { Box, Typography, Button, styled } from '@mui/material';
 import React, { useEffect } from 'react';
 import { init, registerTheme } from 'echarts';
-import vintage from '../lib/vintage'; // Adjust the path based on your file location
-import {appendScript} from '../lib/appendScript';
+import theme from '../lib/vintage.json'; // Adjust the path based on your file location
+
 
 const Demo = () => {
   useEffect(() => {
+    const themeObject = JSON.parse(JSON.stringify(theme));
+    registerTheme('vintage', themeObject);
     const domElement = document.getElementById('echarts-dom');
-
-    // Register the custom theme
-    // registerTheme('vintage', vintage);
 
     // Initialize echarts instance with the custom theme
     const echartsInstance = init(domElement, 'vintage');
@@ -61,7 +60,6 @@ const Demo = () => {
 
   return (
     <>
-      {appendScript("../lib/vintage.js")}
       <Header />
 
       <div id="echarts-dom" style={{ width: "100%", height: "400px" }} />
