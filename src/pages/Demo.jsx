@@ -2,43 +2,18 @@ import Header from '../components/Header';
 import { Box, Typography, Button, styled } from '@mui/material';
 import React, { useEffect } from 'react';
 import { init, registerTheme } from 'echarts';
-import customTheme from '../lib/customed'; // Adjust the path based on your file location
-
-const Component = styled(Box)({
-    display: 'flex',
-    height: '100vh',
-    alignItems: 'center',
-    margin: '0 10px',
-    '& > div': {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        '& > div > p': {
-            fontSize: 56,
-            lineHeight: 1.25,
-            letterSpacing: -1
-        },
-        '& > div > button': {
-            width: 220,
-            height: 60,
-            background: 'rgb(37, 87, 167)',
-            textTransform: 'none',
-            fontSize: 16,
-            fontWeight: 700,
-            marginTop: 48
-        }
-    }
-})
+import vintage from '../lib/vintage'; // Adjust the path based on your file location
+import {appendScript} from '../lib/appendScript';
 
 const Demo = () => {
   useEffect(() => {
     const domElement = document.getElementById('echarts-dom');
 
     // Register the custom theme
-    registerTheme('customTheme', customTheme);
+    // registerTheme('vintage', vintage);
 
     // Initialize echarts instance with the custom theme
-    const echartsInstance = init(domElement, 'customTheme');
+    const echartsInstance = init(domElement, 'vintage');
 
    // prettier-ignore
     const hours = [
@@ -74,10 +49,10 @@ const Demo = () => {
           data: [10, 20, 15, 25, 30],
           label: {
             show: true,
-            formatter: function (params) {
-              // Create a hyperlink using an anchor tag
-              return `<a href="https://example.com">${params.value}</a>`;
-            },
+            // formatter: function (params) {
+            //   // Create a hyperlink using an anchor tag
+            //   return `<a href="https://example.com">${params.value}</a>`;
+            // },
           },
         },
       ],
@@ -86,13 +61,10 @@ const Demo = () => {
 
   return (
     <>
-    <Header />
-    <Component>
-        <Box>
-            <div id="echarts-dom" style={{ width: '100%', height: '400px' }} />
-        </Box>
-    </Component>
+      {appendScript("../lib/vintage.js")}
+      <Header />
 
+      <div id="echarts-dom" style={{ width: "100%", height: "400px" }} />
     </>
   );
 };
